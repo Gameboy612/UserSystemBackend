@@ -5,7 +5,8 @@ import hashlib
 from methods.user.login.query.sessionid import findUserIDBySessionID
 from methods.user.login.query.user import findUserByID
 from methods.user.login.password.verify_password import verify_userid_password
-
+from methods.user.login.session.remove_session_id import logouteverywhere
+from methods.user.login.session.get_session_id import login
 
 def calculateHash(password: bytes, salt: bytes) -> str:
     '''
@@ -43,12 +44,13 @@ def change_password(
     user.salt, user.hash = getSaltAndHash(password=newpassword)
     
     # Logout all other accounts
-    
+    logouteverywhere(userid)
 
+    newsessionid = login(username=user.username, password=user.newpassword)["data"]["sessionid"]
     return {
         "success": True,
         "response": "Password Updated",
         "data": {
-            
+            "sessionid": newsessionid
         }
     }

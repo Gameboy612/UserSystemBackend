@@ -50,24 +50,11 @@ def endpoint():
 
     if "method" in content and "data" in content:
         data = content["data"]
-        match content["method"]:
-            case "get_session_id":
-                import methods.user.login.session.get_session_id as get_session_id
-                response = get_session_id.login(
-                    username=data["username"],
-                    password=data["password"]
-                )
-                return jsonify(response)
-            case "create_user":
-                import methods.user.login.create_user as create_user
-                response = create_user.register(
-                    username=data["username"],
-                    password=data["password"]
-                )
-                return jsonify(response)
-            case "change_password":
-                import methods.user.login.password.change_password as change_password
-
+        method = content["method"].split("/")
+        match method[0]:
+            case "user":
+                from methods.user._method import run_method
+                return run_method(method=method[1:],data=data)
 
 
         return jsonify({
