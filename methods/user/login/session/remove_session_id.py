@@ -8,7 +8,7 @@ def logout(sessionid: uuid) -> dict:
     db.session.commit()
 
 
-def logouteverywhere(sessionid: uuid) -> dict:
+def logout_everywhere(sessionid: uuid) -> dict:
     sessions = findSessionsBySessionID(sessionid=sessionid)
     for session in sessions:
         session.delete()

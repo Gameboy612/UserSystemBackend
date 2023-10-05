@@ -28,9 +28,9 @@ def run_method(method: list, data: dict) -> dict:
             )
             return jsonify(response)
         
-        case "logouteverywhere":
-            from methods.user.login.session.remove_session_id import logouteverywhere
-            response = logouteverywhere(
+        case "logout_everywhere":
+            from methods.user.login.session.remove_session_id import logout_everywhere
+            response = logout_everywhere(
                 sessionid=data["sessionid"]
             )
             return jsonify(response)
