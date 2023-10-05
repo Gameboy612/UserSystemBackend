@@ -1,4 +1,4 @@
-from methods.user.login.get_session_id import login as getSessionID
+from methods.user.login.session.get_session_id import login as getSessionID
 from methods.user.login.password.change_password import getSaltAndHash
 from main import users, db
 

@@ -52,7 +52,7 @@ def endpoint():
         data = content["data"]
         match content["method"]:
             case "get_session_id":
-                import methods.user.login.get_session_id as get_session_id
+                import methods.user.login.session.get_session_id as get_session_id
                 response = get_session_id.login(
                     username=data["username"],
                     password=data["password"]

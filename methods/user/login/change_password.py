@@ -2,7 +2,7 @@ import bcrypt
 
 from methods.user.login.query.sessionid import findUserIDBySessionID
 from methods.user.login.query.user import findUserByID
-from methods.user.login.get_session_id import calculateHash
+from methods.user.login.session.get_session_id import calculateHash
 
 
 def getSaltAndHash(password: str) -> (bytes, str):
