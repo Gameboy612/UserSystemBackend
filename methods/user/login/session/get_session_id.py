@@ -1,21 +1,8 @@
-import bcrypt
-import base64
-import hashlib
-
 from main import sessionids, db
 
 from sqlalchemy.exc import IntegrityError
 import methods.user.login.query.user as user
 from methods.user.login.password.verify_password import verify_username_password
-
-def calculateHash(password: bytes, salt: bytes) -> str:
-    '''
-    Returns the hash of the password
-    '''
-    return bcrypt.hashpw(
-        base64.b64encode(hashlib.sha256(password).digest()),
-        salt
-    )
 
 
 
