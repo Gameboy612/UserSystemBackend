@@ -6,11 +6,6 @@ from main import users
 def verify_username_password(username: str, password: str, users: users) -> bool:
     user = findUserByUsername(username, users=users)
     calchash = calculateHash(password.encode("utf-8"), user.salt)
-    print(f"password b: {password.encode('utf-8')}")
-    print(f"user.salt: {user.salt}")
-    print("")
-    print(f"calchash: {calchash}")
-    print(f"user.hash: {user.hash}")
     return calchash == user.hash
 
 

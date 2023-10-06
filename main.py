@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import uuid
+import json
 import datetime
+from traceback import format_exc
+
 
 
 app = Flask(__name__)
@@ -51,25 +54,33 @@ def endpoint():
     if "method" in content and "data" in content:
         data = content["data"]
         method = content["method"].split("/")
-        # try:
-        match method[0]:
-            case "user":
-                from methods.user._method import run_method
-                return run_method(
-                    method = method[1:],
-                    data = data,
-                    users = users,
-                    sessionids = sessionids,
-                    db = db
-                    )
-        # except Exception as e:
-        #     return jsonify({
-        #         "success": False,
-        #         "response": "Exception Occured",
-        #         "data": {
-        #             "exception": e.args
-        #         }
-        #     })
+        try:
+            match method[0]:
+                case "user":
+                    from methods.user._method import run_method
+                    return run_method(
+                        method = method[1:],
+                        data = data,
+                        users = users,
+                        sessionids = sessionids,
+                        db = db
+                        )
+        except Exception as e:
+            c = uuid.uuid4()
+            
+            with open(f"errortracker/{c}.txt", "w+", encoding='utf-8') as f:
+                f.write(str(datetime.datetime.now()) + "\n")
+                f.write(json.dumps(content["method"]))
+                f.write("\n\n")
+                f.write(format_exc())
+
+            return jsonify({
+                "success": False,
+                "response": "500 Internal Server Error",
+                "data": {
+                    "erroruuid": f"{c}"
+                }
+            })
 
         return jsonify({
             "success": False,

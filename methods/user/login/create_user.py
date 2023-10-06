@@ -1,10 +1,18 @@
 from methods.user.login.session.get_session_id import login as getSessionID
 from methods.user.login.password.change_password import getSaltAndHash
+from methods.user.login.password.secure_password import check_security
 from main import users, sessionids, db
 
 from sqlalchemy.exc import IntegrityError
 
 def register(username: str, password: str, users: users, sessionids: sessionids, db: db) -> dict:
+    # Check password secure
+    r = check_security(password=password)
+    if not r["success"]:
+        return r
+    
+
+
     salt, hash = getSaltAndHash(password)
 
     user = users(

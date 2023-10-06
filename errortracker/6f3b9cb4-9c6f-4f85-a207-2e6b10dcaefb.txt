@@ -1,0 +1,17 @@
+2023-10-07 01:04:12.864510
+"user/change_password"
+
+Traceback (most recent call last):
+  File "c:\codes\FullStack\PhotoSharer\BackEnd\main.py", line 61, in endpoint
+    return run_method(
+  File "c:\codes\FullStack\PhotoSharer\BackEnd\methods\user\_method.py", line 36, in run_method
+    response = change_password(
+  File "c:\codes\FullStack\PhotoSharer\BackEnd\methods\user\login\password\change_password.py", line 29, in change_password
+    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids)
+  File "c:\codes\FullStack\PhotoSharer\BackEnd\methods\user\login\query\sessionid.py", line 23, in findUserIDBySessionID
+    session = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids)
+  File "c:\codes\FullStack\PhotoSharer\BackEnd\methods\user\login\query\sessionid.py", line 5, in findSessionBySessionID
+    return sessionids.query.filter_by(sessionid=uuid.UUID(sessionid)).first()
+  File "C:\Users\kapak\AppData\Local\Programs\Python\Python310\lib\uuid.py", line 177, in __init__
+    raise ValueError('badly formed hexadecimal UUID string')
+ValueError: badly formed hexadecimal UUID string
