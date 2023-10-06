@@ -1,19 +1,3 @@
-# '''
-# Example Return Type:
-
-# return {
-#     "success": False,
-#     "response": "Password less than * characters.",
-#     "data": {}
-# }
-
-# return {
-#     "success": True,
-#     "response": "Password available.",
-#     "data": {}
-# }
-
-
 # AA
 import re  
 def check_security(password: str) -> dict:
@@ -46,4 +30,6 @@ def check_security(password: str) -> dict:
      "response": "Password available.",
      "data": {}
        }
+# if __name__ == "__main__":
+#    print(check_security(""))
 
