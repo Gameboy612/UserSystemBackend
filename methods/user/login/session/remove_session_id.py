@@ -1,15 +1,39 @@
 import uuid
 from methods.user.login.query.sessionid import findSessionBySessionID, findSessionsBySessionID
-from main import db
+from main import db, sessionids
 
-def logout(sessionid: uuid) -> dict:
-    session = findSessionBySessionID(sessionid=sessionid)
-    session.delete()
+def logout(sessionid: uuid, db:db) -> dict:
+    session = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids)
+    if not session:
+        return {
+            "success": False,
+            "response": "SessionID not found."
+        }
+    db.session.delete(session)
     db.session.commit()
+    return {
+        "success": True,
+        "response": "Session Key Deleted."
+    }
 
 
-def logout_everywhere(sessionid: uuid) -> dict:
-    sessions = findSessionsBySessionID(sessionid=sessionid)
-    for session in sessions:
-        session.delete()
+def logout_everywhere(sessionid: uuid, sessionids: sessionids, db: db) -> dict:
+    r = findSessionsBySessionID(sessionid=sessionid, sessionids=sessionids)
+
+    if not r["success"]:
+        return r
+
+    sessions = r["data"]["sessions"]
+
+    if not sessions:
+        return {
+            "success": False,
+            "response": "SessionID not found."
+        }
+    for i in sessions:
+        db.session.delete(i)
     db.session.commit()
+    return {
+        "success": True,
+        "response": "All Related Session Keys Deleted."
+    }

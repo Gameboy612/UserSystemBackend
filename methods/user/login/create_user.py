@@ -1,11 +1,11 @@
 from methods.user.login.session.get_session_id import login as getSessionID
 from methods.user.login.password.change_password import getSaltAndHash
-from main import users, db
+from main import users, sessionids, db
 
 from sqlalchemy.exc import IntegrityError
 
-def register(username: str, password: str) -> dict:
-    hash, salt = getSaltAndHash(password)
+def register(username: str, password: str, users: users, sessionids: sessionids, db: db) -> dict:
+    salt, hash = getSaltAndHash(password)
 
     user = users(
         username=username,
@@ -18,16 +18,20 @@ def register(username: str, password: str) -> dict:
         db.session.commit()
         res = getSessionID(
                     username=username,
-                    password=password
+                    password=password,
+                    users=users,
+                    sessionids=sessionids,
+                    db=db
                 )
-        
-        return {
-            "success": True,
-            "response": "User created!",
-            "data": {
-                "sessionid": res["data"]["sessionid"]
+        if res["success"]:
+            return {
+                "success": True,
+                "response": "User created!",
+                "data": {
+                    "sessionid": res["data"]["sessionid"]
+                }
             }
-        }
+        return res
     except IntegrityError:
         db.session.rollback()
         return {

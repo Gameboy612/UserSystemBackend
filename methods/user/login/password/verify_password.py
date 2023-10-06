@@ -1,11 +1,23 @@
-from methods.user.login.password.change_password import calculateHash
+from methods.user.login.password.calculate_hash import calculateHash
 from methods.user.login.query.user import findUserByID, findUserByUsername
 
-def verify_username_password(username: str, password: str) -> bool:
-    user = findUserByUsername(username)
-    return calculateHash(password.encode("utf-8"), user.salt) == user.hash
+from main import users
+
+def verify_username_password(username: str, password: str, users: users) -> bool:
+    user = findUserByUsername(username, users=users)
+    calchash = calculateHash(password.encode("utf-8"), user.salt)
+    print(f"password b: {password.encode('utf-8')}")
+    print(f"user.salt: {user.salt}")
+    print("")
+    print(f"calchash: {calchash}")
+    print(f"user.hash: {user.hash}")
+    return calchash == user.hash
 
 
-def verify_userid_password(userid: str, password: str) -> bool:
-    user = findUserByID(userid)
-    return calculateHash(password.encode("utf-8"), user.salt) == user.hash
+def verify_userid_password(userid: int, password: str, users: users) -> bool:
+    user = findUserByID(userid, users=users)
+    return verify_username_password(
+        username=user.username,
+        password=password,
+        users=users
+    )

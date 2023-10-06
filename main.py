@@ -51,11 +51,25 @@ def endpoint():
     if "method" in content and "data" in content:
         data = content["data"]
         method = content["method"].split("/")
+        # try:
         match method[0]:
             case "user":
                 from methods.user._method import run_method
-                return run_method(method=method[1:],data=data)
-
+                return run_method(
+                    method = method[1:],
+                    data = data,
+                    users = users,
+                    sessionids = sessionids,
+                    db = db
+                    )
+        # except Exception as e:
+        #     return jsonify({
+        #         "success": False,
+        #         "response": "Exception Occured",
+        #         "data": {
+        #             "exception": e.args
+        #         }
+        #     })
 
         return jsonify({
             "success": False,
