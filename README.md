@@ -43,4 +43,12 @@ The endpoint data json request goes as follow:
     }
 }
 ```
+```json
+{
+    "method": "action/main",
+    "data": {
+        "sessionid": ""
+    }
+}
+```
 
