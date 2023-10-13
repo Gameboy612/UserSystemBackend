@@ -26,7 +26,7 @@ def change_password(
         db: db,
         forcechange: bool = False, ) -> dict:
 
-    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids)
+    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
 
     if not r["success"]:
         return r

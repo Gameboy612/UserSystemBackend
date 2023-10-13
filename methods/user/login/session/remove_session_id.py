@@ -3,7 +3,7 @@ from methods.user.login.query.sessionid import findSessionBySessionID, findSessi
 from main import db, sessionids
 
 def logout(sessionid: uuid, db:db) -> dict:
-    session = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids)
+    session = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
     if not session:
         return {
             "success": False,
@@ -18,7 +18,7 @@ def logout(sessionid: uuid, db:db) -> dict:
 
 
 def logout_everywhere(sessionid: uuid, sessionids: sessionids, db: db) -> dict:
-    r = findSessionsBySessionID(sessionid=sessionid, sessionids=sessionids)
+    r = findSessionsBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
 
     if not r["success"]:
         return r

@@ -1,10 +1,10 @@
-from main import sessionids
+from main import sessionids, db
 import uuid
 import datetime
 
 SESSIONLIFE = 1
 
-def findSessionBySessionID(sessionid: str, sessionids: sessionids):
+def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
     session = sessionids.query.filter_by(sessionid=uuid.UUID(sessionid)).first()
     if not session:
         return {
@@ -14,10 +14,10 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids):
         }
     
     t0 = session.lastused
-    t1 = datetime.datetime.now().date()
-    print(t0)
-    print(t1)
-    if (True):
+    t1 = datetime.datetime.now()
+    if (t1 - t0).days > SESSIONLIFE:
+        db.session.delete(session)
+        db.session.commit()
         return {
             "success": False,
             "response": "Your session expired.",
@@ -32,8 +32,8 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids):
     }
         
 
-def findSessionsBySessionID(sessionid: str, sessionids: sessionids):
-    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids)
+def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
+    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
     if not r["success"]:
         return r
     
@@ -47,8 +47,8 @@ def findSessionsBySessionID(sessionid: str, sessionids: sessionids):
         }
     }
 
-def findUserIDBySessionID(sessionid: str, sessionids: sessionids) -> dict:
-    r = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids)
+def findUserIDBySessionID(sessionid: str, sessionids: sessionids, db: db) -> dict:
+    r = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
     if not r["success"]:
         return r
     session = r["data"]["session"]
