@@ -5,6 +5,8 @@ import json
 import datetime
 from traceback import format_exc
 
+from methods.user.login.password.calculate_hash import calculateHash
+
 
 
 app = Flask(__name__)
@@ -31,12 +33,13 @@ class users(db.Model):
 class sessionids(db.Model):
     __tablename__ = 'sessionids'
     _id = db.Column("id", db.Integer, primary_key=True)
-    sessionid = db.Column(db.Uuid, unique=True)
+    sessionid = db.Column(db.String(100), unique=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+    accessedcount = db.Column(db.Integer, default=0)
     lastused = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
     def __init__(self, userid):
-        self.sessionid = uuid.uuid4()
+        self.sessionid = str(uuid.uuid4())
         self.userid = userid
 
 

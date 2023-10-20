@@ -9,11 +9,10 @@ def run_method(
         db: db
         ) -> dict:
     match method[0]:
-        case "main":
-            from methods.action. import login
-            response = login(
-                username=data["username"],
-                password=data["password"],
+        case "get_main_data":
+            from methods.action.get_main_data import get_main_data
+            response = get_main_data(
+                sessionid=data["sessionid"],
                 users=users,
                 sessionids=sessionids,
                 db=db

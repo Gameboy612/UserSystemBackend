@@ -2,10 +2,12 @@ from main import sessionids, db
 import uuid
 import datetime
 
+from methods.user.login.password.calculate_hash import calculateHash
+
 SESSIONLIFE = 1
 
 def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
-    session = sessionids.query.filter_by(sessionid=uuid.UUID(sessionid)).first()
+    session = sessionids.query.filter_by(sessionid=calculateHash(sessionid.encode())).first()
     if not session:
         return {
             "success": False,
@@ -23,6 +25,8 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
             "response": "Your session expired.",
             "data": {}
         }
+    session.accessedcount += 1
+    db.session.commit()
     return {
         "success": True,
         "response": "",
