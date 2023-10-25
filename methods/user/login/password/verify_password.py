@@ -7,9 +7,9 @@ def verify_username_password(username: str, password: str, users: users) -> bool
     """Verify if the username and password pair matches.
 
     Args:
-        username (str): Input username
-        password (str): Raw Password
-        users (users): The users class, forward this from main.py
+        username (str): Input username.
+        password (str): Raw Password.
+        users (users): The users class, forward this from `main.py`.
 
     Returns:
         bool: Whether the username and password pair match
@@ -23,9 +23,9 @@ def verify_userid_password(userid: int, password: str, users: users) -> bool:
     """Verify if the userid and password pair matches.
 
     Args:
-        userid (int): Input userid
-        password (str): Raw Password
-        users (users): The users class, forward this from main.py
+        userid (int): Input userid.
+        password (str): Raw Password.
+        users (users): The users class, forward this from `main.py`.
 
     Returns:
         bool: Whether the userid and password pair match

@@ -11,14 +11,14 @@ from methods.user.login.password.secure_password import check_security
 from main import users, sessionids, db
 
 def getSaltAndHash(password: str) -> (bytes, str):
-    """Generates a *Salt* and returns the corresponding *Hash*
+    """Generates a *Salt* and returns the corresponding *Hash*.
 
     Args:
         password (str): The password you want to encrypt.
 
     Returns:
-        bytes:  Salt
-        str:    Hash
+        bytes:  Salt.
+        str:    Hash.
     """
     salt = bcrypt.gensalt()
     hash = calculateHash(password=password.encode("utf-8"), salt=salt)
@@ -34,15 +34,15 @@ def change_password(
         sessionids: sessionids,
         db: db,
         forcechange: bool = False, ) -> dict:
-    """Change Password of user
+    """Change Password of user.
 
     Args:
-        oldpassword (str): Raw Old Password
-        newpassword (str): Raw New Password
-        sessionid (str): Active SessionID
-        users (users): The users class, forward this from main.py
-        sessionids (sessionids): The sessionids class, forward this from main.py
-        db (db): The db object, forward this from main.py
+        oldpassword (str): Raw Old Password.
+        newpassword (str): Raw New Password.
+        sessionid (str): Active SessionID.
+        users (users): The users class, forward this from `main.py`.
+        sessionids (sessionids): The sessionids class, forward this from `main.py`.
+        db (db): The db object, forward this from `main.py`.
         forcechange (bool, optional): Whether a force change is called. Defaults to False.
 
     Returns:

@@ -9,14 +9,14 @@ SESSIONLIFE = 1
 
 def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
     """
-    Gets Session object of given SessionID
+    Gets Session object of given SessionID.
 
     Returns a dictionary object inluding the userid.
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from main.py.
-        db (db): The db object, forward this from main.py.
+        sessionids (sessionids): The sessionids class, forward this from `main.py`.
+        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -70,8 +70,8 @@ def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from main.py.
-        db (db): The db object, forward this from main.py.
+        sessionids (sessionids): The sessionids class, forward this from `main.py`.
+        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -109,8 +109,8 @@ def findUserIDBySessionID(sessionid: str, sessionids: sessionids, db: db) -> dic
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from main.py.
-        db (db): The db object, forward this from main.py.
+        sessionids (sessionids): The sessionids class, forward this from `main.py`.
+        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
