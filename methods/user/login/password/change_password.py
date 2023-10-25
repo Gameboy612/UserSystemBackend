@@ -11,6 +11,15 @@ from methods.user.login.password.secure_password import check_security
 from main import users, sessionids, db
 
 def getSaltAndHash(password: str) -> (bytes, str):
+    """Generates a *Salt* and returns the corresponding *Hash*
+
+    Args:
+        password (str): The password you want to encrypt.
+
+    Returns:
+        bytes:  Salt
+        str:    Hash
+    """
     salt = bcrypt.gensalt()
     hash = calculateHash(password=password.encode("utf-8"), salt=salt)
     return salt, hash
@@ -25,7 +34,30 @@ def change_password(
         sessionids: sessionids,
         db: db,
         forcechange: bool = False, ) -> dict:
+    """Change Password of user
 
+    Args:
+        oldpassword (str): Raw Old Password
+        newpassword (str): Raw New Password
+        sessionid (str): Active SessionID
+        users (users): The users class, forward this from main.py
+        sessionids (sessionids): The sessionids class, forward this from main.py
+        db (db): The db object, forward this from main.py
+        forcechange (bool, optional): Whether a force change is called. Defaults to False.
+
+    Returns:
+        dict: Response, formatted as shown below.
+    
+        ```
+        {
+            "success": bool,
+            "response": str,
+            "data": {
+                "sessionid": str
+            }
+        }
+        ```
+    """
     r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
 
     if not r["success"]:
@@ -33,7 +65,7 @@ def change_password(
 
     userid = r["data"]["userid"]
 
-    if not verify_userid_password(userid=userid, password=oldpassword, users=users):
+    if forcechange or (not verify_userid_password(userid=userid, password=oldpassword, users=users)):
         return {
             "success": False,
             "response": "Incorrect old password.",
