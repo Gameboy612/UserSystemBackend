@@ -1,4 +1,5 @@
-from main import sessionids, db, users
+from main import sessionids
+from db import db
 
 from sqlalchemy.exc import IntegrityError
 from methods.user.login.password.calculate_hash import calculateHash
@@ -7,11 +8,11 @@ from methods.user.login.password.verify_password import verify_username_password
 
 
 
-def login(username: str, password: str, users: users, sessionids: sessionids, db: db) -> dict:
+def login(username: str, password: str) -> dict:
     SESSIONID = ""
-    target_user = user.findUserByUsername(username, users=users)
+    target_user = user.findUserByUsername(username)
     if target_user:
-        if not verify_username_password(username=username, password=password, users=users):
+        if not verify_username_password(username=username, password=password):
             return {
                     "success": False,
                     "response": "Password Incorrect!",

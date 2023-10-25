@@ -1,21 +1,14 @@
 from flask import jsonify
-from main import users, sessionids, db
 
 def run_method(
         method: list,
-        data: dict,
-        users: users,
-        sessionids: sessionids,
-        db: db
+        data: dict
         ) -> dict:
     match method[0]:
-        case "get_main_data":
-            from methods.action.get_main_data import get_main_data
-            response = get_main_data(
-                sessionid=data["sessionid"],
-                users=users,
-                sessionids=sessionids,
-                db=db
+        case "get_profile":
+            from methods.action.get_profile import get_profile
+            response = get_profile(
+                sessionid=data["sessionid"]
             )
             return jsonify(response)
         

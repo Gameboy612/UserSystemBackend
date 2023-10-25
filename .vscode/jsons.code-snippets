@@ -1,0 +1,24 @@
+{
+    "snippet": {
+        "prefix": "$snippet",
+        "body": [
+            "\"${1:NAME}\":{",
+            "\t\"scope\":\"${2:mcfunction}\",",
+            "\t\"prefix\":\"$${3:PREFIX}\",",
+            "\t\"body\":[",
+            "\t\t${4:\"\"}",
+            "\t]",
+            "},",
+        ]
+    },
+    "returnjson":{
+        "prefix":"$returnjson",
+        "body":[
+            "{",
+            "\t\"success\": ${1:bool},",
+            "\t\"response\": \"${2:response}\",",
+            "\t\"data\": {${3:data}}",
+            "}"
+        ]
+    },
+}

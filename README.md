@@ -2,9 +2,11 @@
 
 The endpoint data json request goes as follow:
 
-# TODO:
-1. Add hashing to sessionid
-2. Update Lastused when fetching data
+## DONE:
+1. Add hashing to sessionid 20/10/2023
+
+## TODO:
+1. Update Lastused when fetching data
 
 
 # Method Type: "user"

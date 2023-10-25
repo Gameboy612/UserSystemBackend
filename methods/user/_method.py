@@ -1,12 +1,8 @@
 from flask import jsonify
-from main import users, sessionids, db
 
 def run_method(
         method: list,
         data: dict,
-        users: users,
-        sessionids: sessionids,
-        db: db
         ) -> dict:
     match method[0]:
         case "login":
@@ -14,20 +10,14 @@ def run_method(
             response = login(
                 username=data["username"],
                 password=data["password"],
-                users=users,
-                sessionids=sessionids,
-                db=db
             )
             return jsonify(response)
         
         case "register":
-            from methods.user.login.create_user import register
+            from methods.user.register.create_user import register
             response = register(
                 username=data["username"],
                 password=data["password"],
-                users=users,
-                sessionids=sessionids,
-                db=db
             )
             return jsonify(response)
         
@@ -37,9 +27,6 @@ def run_method(
                 oldpassword=data["oldpassword"],
                 newpassword=data["newpassword"],
                 sessionid=data["sessionid"],
-                users=users,
-                sessionids=sessionids,
-                db=db
             )
             return jsonify(response)
         
@@ -47,8 +34,6 @@ def run_method(
             from methods.user.login.session.remove_session_id import logout_everywhere
             response = logout_everywhere(
                 sessionid=data["sessionid"],
-                sessionids=sessionids,
-                db=db
             )
             return jsonify(response)
     
