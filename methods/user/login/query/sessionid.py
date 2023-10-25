@@ -4,9 +4,22 @@ import datetime
 
 from methods.user.login.password.calculate_hash import calculateHash
 
+# SESSIONLIFE is to set the days required for the session to expire. (Default: 1 Day)
 SESSIONLIFE = 1
 
 def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
+    '''
+    Gets Session object of given SessionID
+
+    Returns a dictionary object inluding the userid.
+    {
+        "success": bool,
+        "response": str,
+        "data": {
+            "session": sessionids
+        }
+    }
+    '''
     session = sessionids.query.filter_by(sessionid=calculateHash(sessionid.encode())).first()
     if not session:
         return {
@@ -34,9 +47,23 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
             "session": session
         }
     }
-        
+
+
+
 
 def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
+    '''
+    Gets *ALL* SessionIDs of same UserID of given SessionID
+
+    Returns a dictionary object inluding the userid.
+    {
+        "success": bool,
+        "response": str,
+        "data": {
+            "sessions": sessionids
+        }
+    }
+    '''
     r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
     if not r["success"]:
         return r
@@ -51,7 +78,20 @@ def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
         }
     }
 
+
 def findUserIDBySessionID(sessionid: str, sessionids: sessionids, db: db) -> dict:
+    '''
+    Gets UserID from SessionID
+
+    Returns a dictionary object inluding the userid.
+    {
+        "success": bool,
+        "response": str,
+        "data": {
+            "userid": int
+        }
+    }
+    '''
     r = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
     if not r["success"]:
         return r
