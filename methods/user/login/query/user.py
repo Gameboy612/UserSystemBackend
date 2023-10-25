@@ -1,11 +1,10 @@
 from main import users
 
-def findUserByUsername(username: str, users: users) -> users:
+def findUserByUsername(username: str) -> users:
     """Returns user by username.
 
     Args:
         username (str): Input username.
-        users (users): The users object, forward this from `main.py`.
 
     Returns:
         users: Queried user.
@@ -13,12 +12,11 @@ def findUserByUsername(username: str, users: users) -> users:
     return users.query.filter_by(username=username).first()
 
 
-def findUserByID(id: int, users: users) -> users:
+def findUserByID(id: int) -> users:
     """Returns user by userid.
 
     Args:
         id (int): Input UserID.
-        users (users): The users object, forward this from `main.py`.
 
     Returns:
         users: Queried user.

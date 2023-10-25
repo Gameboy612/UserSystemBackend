@@ -1,9 +1,10 @@
 import uuid
 from methods.user.login.query.sessionid import findSessionBySessionID, findSessionsBySessionID
-from main import db, sessionids
+from main import sessionids
+from db import db
 
-def logout(sessionid: uuid, db:db) -> dict:
-    session = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
+def logout(sessionid: uuid) -> dict:
+    session = findSessionBySessionID(sessionid=sessionid)
     if not session:
         return {
             "success": False,
@@ -17,8 +18,8 @@ def logout(sessionid: uuid, db:db) -> dict:
     }
 
 
-def logout_everywhere(sessionid: uuid, sessionids: sessionids, db: db) -> dict:
-    r = findSessionsBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
+def logout_everywhere(sessionid: uuid) -> dict:
+    r = findSessionsBySessionID(sessionid=sessionid)
 
     if not r["success"]:
         return r

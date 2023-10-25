@@ -1,5 +1,5 @@
-from main import sessionids, db
-import uuid
+from main import sessionids
+from db import db
 import datetime
 
 from methods.user.login.password.calculate_hash import calculateHash
@@ -7,7 +7,7 @@ from methods.user.login.password.calculate_hash import calculateHash
 # SESSIONLIFE is to set the days required for the session to expire. (Default: 1 Day)
 SESSIONLIFE = 1
 
-def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
+def findSessionBySessionID(sessionid: str):
     """
     Gets Session object of given SessionID.
 
@@ -15,8 +15,6 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from `main.py`.
-        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -63,15 +61,13 @@ def findSessionBySessionID(sessionid: str, sessionids: sessionids, db: db):
 
 
 
-def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
+def findSessionsBySessionID(sessionid: str):
     """Gets *ALL* SessionIDs of same UserID of given SessionID.
 
     Returns a dictionary object inluding the list of sessions.
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from `main.py`.
-        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -87,7 +83,7 @@ def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
         ```
     """
 
-    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
+    r = findUserIDBySessionID(sessionid=sessionid)
     if not r["success"]:
         return r
     
@@ -102,15 +98,13 @@ def findSessionsBySessionID(sessionid: str, sessionids: sessionids, db: db):
     }
 
 
-def findUserIDBySessionID(sessionid: str, sessionids: sessionids, db: db) -> dict:
+def findUserIDBySessionID(sessionid: str) -> dict:
     """Gets UserID from SessionID.
 
     Returns a dictionary object inluding the userid.
 
     Args:
         sessionid (str): Raw SessionID.
-        sessionids (sessionids): The sessionids class, forward this from `main.py`.
-        db (db): The db object, forward this from `main.py`.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -126,7 +120,7 @@ def findUserIDBySessionID(sessionid: str, sessionids: sessionids, db: db) -> dic
         ```
     """
 
-    r = findSessionBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
+    r = findSessionBySessionID(sessionid=sessionid)
     if not r["success"]:
         return r
     session = r["data"]["session"]

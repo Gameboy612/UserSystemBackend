@@ -8,7 +8,6 @@ from methods.user.login.session.get_session_id import login
 from methods.user.login.password.calculate_hash import calculateHash
 from methods.user.login.password.secure_password import check_security
 
-from main import users, sessionids, db
 
 def getSaltAndHash(password: str) -> (bytes, str):
     """Generates a *Salt* and returns the corresponding *Hash*.
@@ -30,9 +29,6 @@ def change_password(
         oldpassword: str,
         newpassword: str,
         sessionid: str,
-        users: users,
-        sessionids: sessionids,
-        db: db,
         forcechange: bool = False, ) -> dict:
     """Change Password of user.
 
@@ -40,9 +36,6 @@ def change_password(
         oldpassword (str): Raw Old Password.
         newpassword (str): Raw New Password.
         sessionid (str): Active SessionID.
-        users (users): The users class, forward this from `main.py`.
-        sessionids (sessionids): The sessionids class, forward this from `main.py`.
-        db (db): The db object, forward this from `main.py`.
         forcechange (bool, optional): Whether a force change is called. Defaults to False.
 
     Returns:
@@ -58,14 +51,14 @@ def change_password(
         }
         ```
     """
-    r = findUserIDBySessionID(sessionid=sessionid, sessionids=sessionids, db=db)
+    r = findUserIDBySessionID(sessionid=sessionid)
 
     if not r["success"]:
         return r
 
     userid = r["data"]["userid"]
 
-    if forcechange or (not verify_userid_password(userid=userid, password=oldpassword, users=users)):
+    if forcechange or (not verify_userid_password(userid=userid, password=oldpassword)):
         return {
             "success": False,
             "response": "Incorrect old password.",
@@ -78,21 +71,18 @@ def change_password(
         return r
     
 
-    user = findUserByID(userid, users=users)
+    user = findUserByID(userid)
     user.salt, user.hash = getSaltAndHash(password=newpassword)
     
     # Logout all other accounts
-    res = logout_everywhere(sessionid=sessionid, sessionids=sessionids, db=db)
+    res = logout_everywhere(sessionid=sessionid)
     if not res["success"]:
         return res
 
 
     newsessionid = login(
         username=user.username,
-        password=newpassword,
-        users=users,
-        sessionids=sessionids,
-        db=db
+        password=newpassword
         )["data"]["sessionid"]
     return {
         "success": True,
