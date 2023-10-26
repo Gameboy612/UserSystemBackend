@@ -1,0 +1,13 @@
+{
+    "$responsevalid":{
+        "prefix":"$resvalid",
+        "body":[
+            "# Extracting response data.",
+            "res = ${1:findProfileFromSessionID(sessionid)}",
+            "if not res[\"success\"]:",
+            "    return res",
+            "",
+            "${2:profile} = res[\"data\"][\"${2:profile}\"]"
+        ]
+    },
+}

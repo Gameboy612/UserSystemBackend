@@ -58,7 +58,7 @@ def change_password(
 
     userid = r["data"]["userid"]
 
-    if forcechange or (not verify_userid_password(userid=userid, password=oldpassword)):
+    if (not verify_userid_password(userid=userid, password=oldpassword)):
         return {
             "success": False,
             "response": "Incorrect old password.",

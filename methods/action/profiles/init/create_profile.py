@@ -1,5 +1,4 @@
 from sqlite3 import IntegrityError
-from methods._utilities.obj_to_dict import obj_to_dict
 from methods.action.profiles.classes.profiles import profiles
 from db import db
 
@@ -17,7 +16,7 @@ def create_profile(userid: int) -> dict:
             "success": bool,
             "response": str,
             "data": {
-                "profile": dict
+                "profile": profiles
             }
         }
         ```
@@ -33,7 +32,7 @@ def create_profile(userid: int) -> dict:
             "success": True,
             "response": "Profile created!",
             "data": {
-                "profile": obj_to_dict(profile)
+                "profile": profile
             }
         }
     except IntegrityError:

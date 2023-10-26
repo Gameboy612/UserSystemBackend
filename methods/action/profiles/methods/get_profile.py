@@ -15,5 +15,5 @@ def get_profile(sessionid: int) -> dict:
     return {
         "success": True,
         "response": "",
-        "data": profile
+        "data": obj_to_dict(profile)
     }

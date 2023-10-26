@@ -34,7 +34,7 @@ def findProfileFromUserID(
         "success": True,
         "response": "",
         "data": {
-            "profile": obj_to_dict(profile)
+            "profile": profile
         }
     }
 
