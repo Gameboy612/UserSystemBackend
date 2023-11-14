@@ -39,7 +39,7 @@ def create_profile(userid: int) -> dict:
         db.session.rollback()
         return {
             "success": False,
-            "response": "Username is taken.",
+            "response": "Profile already Exists? This should not have happened...",
             "data": {}
         }
 
