@@ -11,7 +11,8 @@ app.secret_key = "svdb"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['SQLALCHEMY_BINDS'] = {
-    'profiles': 'sqlite:///profiles.sqlite3'
+    'profiles': 'sqlite:///profiles.sqlite3',
+    'followlinks': 'sqlite:///followlinks.sqlite3'
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

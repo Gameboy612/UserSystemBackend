@@ -18,6 +18,12 @@ def run_method(
                 edited_data=data["edited_data"]
             )
             return jsonify(response)
+        case "get_followlinks":
+            from methods.action.followlinks.methods.get_followlinks import get_followlinks
+            response = get_followlinks(
+                userid=data["userid"]
+            )
+            return jsonify(response)
         
     
     return jsonify({
