@@ -1,1 +1,3 @@
 errortracker/*
+*.pyc
+*__pycache__*
