@@ -1,13 +1,14 @@
 
 from methods.action.followlinks.classes.followlinks import followlinks
-from methods.action.followlinks.query.followlinks import findFollowLinksFromUserID
+from methods.action.followlinks.query.followlinks import getFollowLinksFromUserID
 
 
-def get_followlinks(userid: int) -> dict:
+def get_followlinks(userid: int, approved: bool) -> dict:
     """Gets the followers and followings of the user as two list of ints, corresponding to each user.
 
     Args:
         userid (int): UserID of user.
+        approved (bool): Whether non-approved follows should be returned.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -23,7 +24,7 @@ def get_followlinks(userid: int) -> dict:
         }
         ```
     """
-    res = findFollowLinksFromUserID(userid)
+    res = getFollowLinksFromUserID(userid, approved=approved)
 
     if not res["success"]:
         return res

@@ -11,7 +11,7 @@ class FollowStatus(Enum):
     WaitingForApproval = 1
     Following = 2
 
-def findFollowLinksFromUserID(
+def getFollowLinksFromUserID(
     userid: int,
     approved: bool = True
 ) -> dict:
@@ -19,6 +19,7 @@ def findFollowLinksFromUserID(
 
     Args:
         userid (int): Input UserID.
+        approved (bool): Only return approved followlinks?
 
     Returns:
         dict: Response, formatted as shown below.
@@ -46,7 +47,7 @@ def findFollowLinksFromUserID(
         }
     }
 
-def findFollowStatusBetweenUsers(user1: int, user2: int):
+def getFollowStatusBetweenUsers(user1: int, user2: int):
     """Gets Follow Status from UserID.
 
     Args:
