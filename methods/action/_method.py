@@ -24,7 +24,10 @@ def run_method(
                 userid=data["userid"]
             )
             return jsonify(response)
-        
+        case "get_relation":
+            from methods.action.followlinks.query.followlinks import findFollowStatusBetweenUsers
+            response = findFollowStatusBetweenUsers(data["user1"], data["user2"])
+            return jsonify(response)
     
     return jsonify({
         "success": False,
