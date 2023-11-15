@@ -1,4 +1,5 @@
 from flask import jsonify
+from methods._utilities.default_responses import METHOD_NOT_FOUND
 from methods.action.followlinks.methods.change_followlinks import FollowManager as FollowManager
 
 def run_method(
@@ -19,6 +20,15 @@ def run_method(
                 edited_data=data["edited_data"]
             )
             return jsonify(response)
+        case "followlinks":
+            from methods.action.followlinks._methods import run_method
+            if len(method) == 1:
+                return jsonify(METHOD_NOT_FOUND)
+            return run_method(
+                method = method[1:],
+                data = data
+            )
+
         case "get_followlinks":
             from methods.action.followlinks.methods.get_followlinks import get_followlinks
             response = get_followlinks(
@@ -34,7 +44,4 @@ def run_method(
             response = FollowManager.follow_user(data["sessionid"], data["userid"])
             return jsonify(response)
     
-    return jsonify({
-        "success": False,
-        "response": "Method not found."
-    })
+    return jsonify(METHOD_NOT_FOUND)
