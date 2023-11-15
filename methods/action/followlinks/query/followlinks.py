@@ -92,14 +92,12 @@ def getFollowStatusBetweenUsers(userid1: int, userid2: int):
 
     return {
         "success": True,
-        "response": """
-        FollowStatus:
-        0 - NotFollowing,
-        1 - WaitingForApproval,
-        2 - Following
-        """,
+        "response": """FollowStatus:
+0 - NotFollowing,
+1 - WaitingForApproval,
+2 - Following""",
         "data": {
-            "forward": forward,
-            "backward": backward
+            "forward": forward.value,
+            "backward": backward.value
         }
     }
