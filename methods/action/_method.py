@@ -1,4 +1,5 @@
 from flask import jsonify
+from methods.action.followlinks.methods.change_followlinks import FollowManager as FollowManager
 
 def run_method(
         method: list,
@@ -27,6 +28,10 @@ def run_method(
         case "get_relation":
             from methods.action.followlinks.query.followlinks import getFollowStatusBetweenUsers
             response = getFollowStatusBetweenUsers(data["user1"], data["user2"])
+            return jsonify(response)
+        
+        case "follow_user":
+            response = FollowManager.follow_user()
             return jsonify(response)
     
     return jsonify({

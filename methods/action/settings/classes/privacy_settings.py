@@ -3,13 +3,13 @@ import enum
 
 
 class AccountPrivacySettings(enum.Enum):
-    Public = 0
-    Private = 1
+    Private = 0
+    Public = 1
 
 class ReachabilitySettings(enum.Enum):
-    Everyone = 0
+    Disallow = 0
     PeopleYouFollow = 1
-    Disallow = 2
+    Everyone = 2
 
 
 class privacy_settings(db.Model):
@@ -25,8 +25,8 @@ class privacy_settings(db.Model):
     def __init__(
             self,
             _id: int,
-            profile_visibility: AccountPrivacySettings,
-            tagability: ReachabilitySettings
+            profile_visibility: AccountPrivacySettings = AccountPrivacySettings.Public,
+            tagability: ReachabilitySettings = ReachabilitySettings.Everyone
             ):
         self._id = _id
         self.profile_visibility = profile_visibility
