@@ -7,6 +7,12 @@ from db import db
 
 class FollowManager:
     def follow_user(sessionid: str, user_to: int) -> dict:
+        if type(user_to) != int:
+            return {
+                "success": False,
+                "response": "user_to should be an int.",
+                "data": {}
+            }
 
         # Extracting response data.
         res = findUserIDBySessionID(sessionid)
@@ -16,7 +22,6 @@ class FollowManager:
 
         # Find link
         links = get_followlinks(user_from)["data"]["followings"]
-        
         if user_to in links:
             return {
                 "success": False,
@@ -24,7 +29,7 @@ class FollowManager:
             }
 
         # Create link
-        res = findPrivacySettingsFromUserID()
+        res = findPrivacySettingsFromUserID(user_to)
         
         if not res["success"]:
             return res
@@ -42,3 +47,17 @@ class FollowManager:
         )
         # Try to add to followlinks
         db.session.add(followlink)
+
+        try:
+            db.session.commit()
+        except:
+            return {
+                "success": False,
+                "response": "Unexpected Error. Followlink Commit failed.",
+                "data": {}
+            }
+        return {
+            "success": True,
+            "response": "Successfully Followed User.",
+            "data": {}
+        }

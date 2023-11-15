@@ -25,7 +25,7 @@ def findPrivacySettingsFromUserID(
         ```
     """
 
-    p = privacy_settings.query.filter_by(_id=userid).first()
+    p = privacy_settings.query.filter_by(userid=userid).first()
     if not p:
         return create_privacy_settings(userid)
     return {

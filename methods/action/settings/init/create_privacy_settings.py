@@ -1,6 +1,7 @@
 from sqlite3 import IntegrityError
 from db import db
 from methods.action.settings.classes.privacy_settings import privacy_settings
+from methods.user.login.query.user import findUserByID
 
 def create_privacy_settings(userid: int) -> dict:
     """Creates a privacy_settings object for the associated userid.
@@ -22,7 +23,14 @@ def create_privacy_settings(userid: int) -> dict:
         ```
     """
 
+    if not findUserByID(userid):
+        return {
+            "success": False,
+            "response": "User is not found.",
+            "data": {}
+        }
     p = privacy_settings(userid)
+
 
     # Try to add to users
     db.session.add(p)

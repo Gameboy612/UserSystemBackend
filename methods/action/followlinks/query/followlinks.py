@@ -13,13 +13,13 @@ class FollowStatus(Enum):
 
 def getFollowLinksFromUserID(
     userid: int,
-    approved: bool = True
+    approved: bool | int = -1
 ) -> dict:
     """Gets Follow links from UserID.
 
     Args:
         userid (int): Input UserID.
-        approved (bool): Only return approved followlinks?
+        approved (bool | -1): Only return approved followlinks? (If -1, then returns all followlinks)
 
     Returns:
         dict: Response, formatted as shown below.
@@ -35,9 +35,12 @@ def getFollowLinksFromUserID(
         }
         ```
     """
-
-    followings = followlinks.query.filter_by(user_from=userid, approved=approved).all()
-    followers = followlinks.query.filter_by(user_to=userid, approved=approved).all()
+    if approved == -1:
+        followings = followlinks.query.filter_by(user_from=userid).all()
+        followers = followlinks.query.filter_by(user_to=userid).all()
+    else:
+        followings = followlinks.query.filter_by(user_from=userid, approved=approved).all()
+        followers = followlinks.query.filter_by(user_to=userid, approved=approved).all()
     return {
         "success": True,
         "response": "",

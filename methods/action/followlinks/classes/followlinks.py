@@ -19,5 +19,7 @@ class followlinks(db.Model):
     approved = db.Column("approved", db.Boolean)
 
     last_updated = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
-    def __init__(self, userid):
-        self.userid = userid
+    def __init__(self, user_from, user_to, approved):
+        self.user_from = user_from
+        self.user_to = user_to
+        self.approved = approved

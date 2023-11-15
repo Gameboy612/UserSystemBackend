@@ -3,7 +3,7 @@ from methods.action.profiles.classes.profiles import profiles
 from methods.action.profiles.query.profiles import findProfileFromSessionID
 
 
-def get_profile(sessionid: int) -> dict:
+def get_profile(sessionid: str) -> dict:
 
     res = findProfileFromSessionID(sessionid)
 
