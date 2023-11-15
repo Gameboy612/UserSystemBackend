@@ -1,3 +1,5 @@
+# pip install -r requirements.txt
+
 bcrypt
 inspect
 Flask=2.3.3
