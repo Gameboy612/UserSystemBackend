@@ -13,10 +13,13 @@ class ReachabilitySettings(enum.Enum):
 
 
 class privacy_settings(db.Model):
+    __bind_key__ = 'settings'
     __tablename__ = 'privacy_settings'
     __table_args__ = {'extend_existing': True}
     
-    _id = db.Column("id", db.Integer, db.ForeignKey('users.id'))
+
+    _id = db.Column("id", db.Integer, primary_key=True)
+    userid = db.Column("userid", db.Integer, unique=True)
     
     profile_visibility = db.Column(db.Enum(AccountPrivacySettings))
     
@@ -24,10 +27,10 @@ class privacy_settings(db.Model):
 
     def __init__(
             self,
-            _id: int,
+            userid: int,
             profile_visibility: AccountPrivacySettings = AccountPrivacySettings.Public,
             tagability: ReachabilitySettings = ReachabilitySettings.Everyone
             ):
-        self._id = _id
+        self.userid = userid
         self.profile_visibility = profile_visibility
         self.tagability = tagability

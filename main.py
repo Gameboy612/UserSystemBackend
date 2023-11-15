@@ -4,6 +4,7 @@ import json
 import datetime
 from traceback import format_exc
 from db import db
+from methods._utilities.default_responses import METHOD_NOT_FOUND
 
 
 app = Flask(__name__)
@@ -12,7 +13,8 @@ app.secret_key = "svdb"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
 app.config['SQLALCHEMY_BINDS'] = {
     'profiles': 'sqlite:///profiles.sqlite3',
-    'followlinks': 'sqlite:///followlinks.sqlite3'
+    'followlinks': 'sqlite:///followlinks.sqlite3',
+    'settings': 'sqlite:///settings.sqlite3'
 }
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -67,12 +69,16 @@ def endpoint():
             match method[0]:
                 case "user":
                     from methods.user._method import run_method
+                    if len(method) == 1:
+                        return jsonify(METHOD_NOT_FOUND)
                     return run_method(
                         method = method[1:],
                         data = data
                         )
                 case "action":
                     from methods.action._method import run_method
+                    if len(method) == 1:
+                        return jsonify(METHOD_NOT_FOUND)
                     return run_method(
                         method = method[1:],
                         data = data
@@ -94,10 +100,7 @@ def endpoint():
                 }
             })
 
-        return jsonify({
-            "success": False,
-            "response": "Method not found."
-        })
+        return jsonify(METHOD_NOT_FOUND)
     return jsonify({
         "success": False,
         "response": "Incorrect syntax."
@@ -108,6 +111,8 @@ def endpoint():
 if __name__ == "__main__":
     with app.app_context():
         from methods.action.profiles.classes.profiles import profiles
+        from methods.action.followlinks.classes.followlinks import followlinks
+        from methods.action.settings.classes.privacy_settings import privacy_settings
 
         db.create_all()
         app.run(host="0.0.0.0", debug=True)

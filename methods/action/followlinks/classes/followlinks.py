@@ -8,8 +8,8 @@ MAX_EMAIL_LENGTH = 50
 MAX_PHONE_NUMBER_LENGTH = 30
 
 class followlinks(db.Model):
-    __bind_key__ = 'profiles'
-    __tablename__ = 'profiles'
+    __bind_key__ = 'followlinks'
+    __tablename__ = 'followlinks'
     __table_args__ = {'extend_existing': True}
 
     _id = db.Column("id", db.Integer, primary_key=True)
