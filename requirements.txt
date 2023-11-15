@@ -1,2 +1,4 @@
 bcrypt
 inspect
+Flask=2.3.3
+Flask-SQLAlchemy=3.0.5
