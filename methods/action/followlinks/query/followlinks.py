@@ -79,12 +79,12 @@ def getFollowStatusBetweenUsers(userid1: int, userid2: int):
     forward = FollowStatus.NotFollowing
     backward = FollowStatus.NotFollowing
 
-    if forward:
+    if link_forward:
         if link_forward.approved:
             forward = FollowStatus.Following
         else:
             forward = FollowStatus.WaitingForApproval
-    if backward:
+    if link_backward:
         if link_backward.approved:
             backward = FollowStatus.Following
         else:
