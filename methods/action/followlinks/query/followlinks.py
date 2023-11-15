@@ -47,12 +47,12 @@ def getFollowLinksFromUserID(
         }
     }
 
-def getFollowStatusBetweenUsers(user1: int, user2: int):
+def getFollowStatusBetweenUsers(userid1: int, userid2: int):
     """Gets Follow Status from UserID.
 
     Args:
-        user1 (int): UserID from.
-        user2 (int): UserID to.
+        userid1 (int): UserID from.
+        userid2 (int): UserID to.
 
     Returns:
         dict: Response, formatted as shown below.
@@ -73,8 +73,8 @@ def getFollowStatusBetweenUsers(user1: int, user2: int):
         ```
     """
 
-    link_forward = followlinks.query.filter_by(user_from=user1, user_to=user2).first()
-    link_backward = followlinks.query.filter_by(user_from=user2, user_to=user1).first()
+    link_forward = followlinks.query.filter_by(user_from=userid1, user_to=userid2).first()
+    link_backward = followlinks.query.filter_by(user_from=userid2, user_to=userid1).first()
 
     forward = FollowStatus.NotFollowing
     backward = FollowStatus.NotFollowing
