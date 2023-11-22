@@ -12,7 +12,7 @@ def get_key_pairs(password: bytes | str) -> Tuple[bytes]:
         password (bytes | str): User Password.
 
     Returns:
-        Tuple[bytes]: Generates them in bytes.
+        Tuple[bytes]: Generates them in bytes. (PUBLIC_KEY, PRIVATE_KEY)
     """
     key = rsa.generate_private_key(
         public_exponent=65537,
@@ -27,7 +27,7 @@ def get_key_pairs(password: bytes | str) -> Tuple[bytes]:
     PRIVATE_KEY = key.private_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PrivateFormat.PKCS8,
-        encryption_algorithm=serialization.BestAvailableEncryption((password))
+        encryption_algorithm=serialization.BestAvailableEncryption(str_to_bytes(password))
     )
     return (PUBLIC_KEY, PRIVATE_KEY)
 
