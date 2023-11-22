@@ -2,8 +2,8 @@ from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.exceptions import InvalidSignature
 from typing import Tuple
+from methods._utilities.str_to_bytes import str_to_bytes
 
-from str_to_bytes import str_to_bytes
 
 def get_key_pairs(password: bytes | str) -> Tuple[bytes]:
     """Generates a public and private key.
