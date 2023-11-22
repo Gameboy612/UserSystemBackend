@@ -43,6 +43,7 @@ class sessionids(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     sessionid = db.Column(db.String(100), unique=True)
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+    public_key = db.Column(db.LargeBinary(451))
     accessedcount = db.Column(db.Integer, default=0)
     lastused = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
