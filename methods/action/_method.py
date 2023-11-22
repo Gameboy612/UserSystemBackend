@@ -10,7 +10,8 @@ def run_method(
         case "get_profile":
             from methods.action.profiles.methods.get_profile import get_profile
             response = get_profile(
-                sessionid=data["sessionid"]
+                sessionid=data["sessionid"],
+                userid=data["userid"]
             )
             return jsonify(response)
         case "set_profile":

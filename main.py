@@ -113,6 +113,7 @@ if __name__ == "__main__":
         from methods.action.profiles.classes.profiles import profiles
         from methods.action.followlinks.classes.followlinks import followlinks
         from methods.action.settings.classes.privacy_settings import privacy_settings
+        from methods.action.settings.classes.profile_viewable_settings import profile_viewable_settings
 
         db.create_all()
         app.run(host="0.0.0.0", debug=True)

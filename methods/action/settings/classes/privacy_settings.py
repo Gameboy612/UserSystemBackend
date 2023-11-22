@@ -3,12 +3,13 @@ import enum
 
 
 class AccountPrivacySettings(enum.Enum):
-    Private = 0
-    Public = 1
+    Hidden = 0
+    Private = 1
+    Public = 2
 
 class ReachabilitySettings(enum.Enum):
     Disallow = 0
-    PeopleYouFollow = 1
+    Followers = 1
     Everyone = 2
 
 
