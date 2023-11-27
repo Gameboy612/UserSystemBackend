@@ -3,10 +3,11 @@
 The endpoint data json request goes as follow:
 
 ## DONE:
-1. Add hashing to sessionid 20/10/2023
+23/11/2023 00:44
+1. Added Private Key and Public Key.
 
 ## TODO:
-1. Update Lastused when fetching data
+1. Add 
 
 
 # Method Type: "user"
