@@ -1,7 +1,6 @@
 # pip install -r requirements.txt
 
 bcrypt
-inspect
 Flask==2.3.3
 Flask-SQLAlchemy==3.0.5
 cryptography==41.0.5
